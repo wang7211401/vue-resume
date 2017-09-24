@@ -1,11 +1,21 @@
 <template>
   <div id="tobpar">
-    topbar
+    <div class="logo">
+      VueResumer
+    </div>
+    <div class="actions">
+      <el-button type="primary">注册</el-button>
+      <el-button>登录</el-button>
+    </div>
   </div>
 </template>
 <style>
   #tobpar{
-    border:1px solid red;
-    min-height:200px;
+    display:flex;
+    justify-content: space-between;
+    padding:16px;
+  }
+  .logo{
+    font-size:26px;
   }
 </style>
