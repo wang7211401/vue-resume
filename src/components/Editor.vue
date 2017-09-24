@@ -2,44 +2,37 @@
   <div id="editor">
     <nav>
       <ol>
-        <li class="active">
+        <li v-for="i in [0,1,2,3,4,5]"
+          :class="{active:currentType === i}" @click="currentType = i">
           <svg class="icon">
-            <use xlink:href="#icon-shenfenzheng"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon">
-            <use xlink:href="#icon-work"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon">
-            <use xlink:href="#icon-book"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon">
-            <use xlink:href="#icon-c-project-copy"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon">
-            <use xlink:href="#icon-jiangbei"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon">
-            <use xlink:href="#icon-phone-line"></use>
+            <use :xlink:href="`#icon-${icons[i]}`"></use>
           </svg>
         </li>
       </ol>
     </nav>
+    <ol class="panes">
+      <li :class="{active: currentType === 0}">tab1</li>
+      <li :class="{active: currentType === 1}">tab2</li>
+      <li :class="{active: currentType === 2}">tab3</li>
+      <li :class="{active: currentType === 3}">tab4</li>
+      <li :class="{active: currentType === 4}">tab5</li>
+      <li :class="{active: currentType === 5}">tab6</li>
+    </ol>
   </div>
 </template>
+<script>
+  export default {
+      data(){
+          return {
+            currentType:0,
+            icons:['shenfenzheng','work','book','c-project-copy','jiangbei','phone-line']
+          }
+      }
+  }
+</script>
 <style>
   #editor{
-    border:1px solid red;
-    min-height:200px;
+    display: flex;
   }
   #editor nav{
     width:80px;
@@ -63,5 +56,16 @@
   }
   #editor ol li.active .icon{
     fill: #000;
+  }
+  .panes{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+  .panes li{
+    display: none;
+  }
+  .panes li.active{
+    display:block;
   }
 </style>

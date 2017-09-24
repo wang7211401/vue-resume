@@ -39,23 +39,30 @@
   flex-direction: column;
 }
 .topbar{
-  box-shadow:0 0 5px rgba(0,0,0,.5)
+  position:relative;
+  z-index:1;
+  box-shadow:0 0 5px rgba(0,0,0,.5);
 }
 main{
   flex:1;
   display:flex;
   width:100%;
+  background:#eee;
 }
 main .editor{
   width:40em;
   margin:16px 8px 16px 16px;
   border-radius:5px;
+  box-shadow:0 0 5px rgba(0,0,0,.5);
   overflow: hidden;
+
 }
 main .perview{
   flex:1;
+  background: #fff;
   margin:16px 16px 16px 8px;
   border-radius:5px;
+  box-shadow:0 0 5px rgba(0,0,0,.5);
   overflow: hidden;
 }
 </style>
