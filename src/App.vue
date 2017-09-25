@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
-    <Topbar class="topbar"></Topbar>
+  <div id="app" v-bind:class="{previewMode:previewMode}">
+    <Topbar class="topbar" v-on:preview="preview"></Topbar>
     <main>
-      <Editor class="editor"></Editor>
-      <Perview class="perview"></Perview>
+      <Editor v-bind:resume="resume" class="editor"></Editor>
+      <Perview v-bind:resume="resume" class="perview"></Perview>
     </main>
+    <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
 </template>
 
@@ -14,7 +15,41 @@
   import Perview from './components/Perview'
 
   export default {
-    name: 'app',
+    data(){
+        return {
+            previewMode: false,
+            resume:{
+              profile:{
+                name:'',
+                city:'',
+                birth:''
+              },
+              workHistory:[
+                {company:'',content:''}
+              ],
+              studyHistory:[
+                {school:'',duration:'',degree:''}
+              ],
+              projects:[
+                {name:'',content:''}
+              ],
+              awards:[
+                {name:''}
+              ],
+              contacts:{
+                qq:'',wechat:'',email:'',phone:''
+              }
+            }
+        }
+    },
+    methods:{
+        exitPreview(){
+            this.previewMode = false
+        },
+        preview(){
+            this.previewMode = true
+        }
+    },
     components: {
       Topbar,
       Editor,
@@ -64,5 +99,24 @@ main .perview{
   border-radius:5px;
   box-shadow:0 0 5px rgba(0,0,0,.5);
   overflow: hidden;
+}
+.previewMode > #topbar{
+  display:none;
+}
+.previewMode #editor{
+  display:none;
+}
+.previewMode #preview{
+  max-width:800px;
+  margin:16px auto;
+}
+#exitPreview{
+  display:none;
+}
+.previewMode #exitPreview{
+  display:inline-block;
+  position:fixed;
+  right:16px;
+  bottom:16px;
 }
 </style>
