@@ -38,7 +38,7 @@
           <el-form-item label="邮箱">
             <el-input v-model="resume.contacts.email"></el-input>
           </el-form-item>
-          <el-form-item label="手机">
+          <el-form-item label="电话">
             <el-input v-model="resume.contacts.phone"></el-input>
           </el-form-item>
         </el-form>
@@ -76,22 +76,23 @@
     height:100%;
     background: black;
   }
-  #editor ol{
-
+  #editor nav li{
+    margin-top:16px;
+    width: 81px;
+    height: 48px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
   }
-  #editor ol li{
-    padding:16px;
-    text-align: center;
-  }
-  #editor ol li.active{
+  #editor nav li.active{
     background: #fff;
   }
-  #editor ol li .icon{
-    width:24px;
-    height:24px;
+  #editor nav li .icon{
+    width:32px;
+    height:32px;
     fill:#fff;
   }
-  #editor ol li.active .icon{
+  #editor nav li.active .icon{
     fill: #000;
   }
   .panes{

@@ -7,8 +7,8 @@
       <h2>工作经历</h2>
       <ul>
         <li v-for="work in filter(resume.workHistory)">
-          {{work.company}}
-          {{work.content}}
+          <p>{{work.company}}</p>
+          <p>{{work.content}}</p>
         </li>
       </ul>
     </section>
@@ -16,9 +16,9 @@
       <h2>学习经历</h2>
       <ul>
         <li v-for="study in filter(resume.studyHistory)">
-          {{study.school}}
-          {{study.duration}}
-          {{study.degree}}
+          <p>{{study.school}}</p>
+          <p>{{study.duration}}</p>
+          <p>{{study.degree}}</p>
         </li>
       </ul>
     </section>
@@ -26,8 +26,8 @@
       <h2>项目经历</h2>
       <ul>
         <li v-for="project in filter(resume.projects)">
-          {{project.name}}
-          {{project.content}}
+          <p>{{project.name}}</p>
+          <p>{{project.content}}</p>
         </li>
       </ul>
     </section>
@@ -35,7 +35,7 @@
       <h2>获奖情况</h2>
       <ul>
         <li v-for="award in filter(resume.awards)">
-          {{award.name}}
+          <p>{{award.name}}</p>
         </li>
       </ul>
     </section>
@@ -69,4 +69,44 @@
   }
 </script>
 <style>
+  #preview{
+    padding:50px;
+    overflow:auto;
+    font-family:STHeitiSC-Light;
+  }
+  #preview h1{
+    margin:0;
+    font-size:48px;
+    color:#333333;
+    letter-spacing:0;
+    font-weight:normal;
+  }
+  #preview > p{
+    margin-top:20px;
+    margin-bottom:10px;
+    font-size:20px;
+    color:#333333;
+    letter-spacing: 0;
+  }
+  #preview section{
+    margin-top:20px;
+  }
+  #preview section h2{
+    font-size:32px;
+    color:#333333;
+    font-weight:normal;
+  }
+  #preview section ul{
+    margin-top:10px;
+  }
+  #preview section ul li p{
+    margin-top:10px;
+    font-size:20px;
+    color:#333333;
+  }
+  #preview section > p{
+    margin-top:10px;
+    font-size:20px;
+    color:#333333;
+  }
 </style>

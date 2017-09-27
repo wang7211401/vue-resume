@@ -65,6 +65,9 @@
   fill: currentColor;
   overflow: hidden;
 }
+body{
+  background: #ECEEF3;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -72,17 +75,21 @@
   height:100vh;
   display: flex;
   flex-direction: column;
+  max-width: 1440px;
+  min-width:1024px;
+  margin:0 auto;
+  background: #EAEBEC;
 }
 .topbar{
   position:relative;
   z-index:1;
   box-shadow:0 0 5px rgba(0,0,0,.5);
+  background: #FFFFFF;
 }
 main{
   flex:1;
   display:flex;
   width:100%;
-  background:#eee;
 }
 main .editor{
   width:40em;
