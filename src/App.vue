@@ -1,6 +1,8 @@
 <template>
   <div id="app" v-bind:class="{previewMode:previewMode}">
-    <Topbar class="topbar" v-on:preview="preview"></Topbar>
+    <nav class="wrapper">
+      <Topbar class="topbar" v-on:preview="preview"></Topbar>
+    </nav>
     <main>
       <Editor v-bind:resume="resume" class="editor"></Editor>
       <Perview v-bind:resume="resume" class="perview"></Perview>
@@ -13,34 +15,20 @@
   import Topbar from './components/Topbar'
   import Editor from './components/Editor'
   import Perview from './components/Perview'
+  import store from './store/index.js'
 
   export default {
+    name:'app',
+    store,
     data(){
         return {
-            previewMode: false,
-            resume:{
-              profile:{
-                name:'',
-                city:'',
-                birth:''
-              },
-              workHistory:[
-                {company:'',content:''}
-              ],
-              studyHistory:[
-                {school:'',duration:'',degree:''}
-              ],
-              projects:[
-                {name:'',content:''}
-              ],
-              awards:[
-                {name:''}
-              ],
-              contacts:{
-                qq:'',wechat:'',email:'',phone:''
-              }
-            }
+            previewMode: false
         }
+    },
+    computed:{
+      resume(){
+        return this.$store.state.resume
+      }
     },
     methods:{
         exitPreview(){
@@ -75,21 +63,26 @@ body{
   height:100vh;
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
-  min-width:1024px;
-  margin:0 auto;
   background: #EAEBEC;
 }
-.topbar{
+.wrapper{
   position:relative;
   z-index:1;
   box-shadow:0 0 5px rgba(0,0,0,.5);
   background: #FFFFFF;
 }
+.topbar{
+  max-width: 1440px;
+  min-width:1024px;
+  margin:0 auto;
+}
 main{
   flex:1;
   display:flex;
   width:100%;
+  max-width: 1440px;
+  min-width:1024px;
+  margin:0 auto;
 }
 main .editor{
   width:40em;
@@ -97,7 +90,6 @@ main .editor{
   border-radius:5px;
   box-shadow:0 0 5px rgba(0,0,0,.5);
   overflow: hidden;
-
 }
 main .perview{
   flex:1;
@@ -107,7 +99,7 @@ main .perview{
   box-shadow:0 0 5px rgba(0,0,0,.5);
   overflow: hidden;
 }
-.previewMode > #topbar{
+.previewMode .wrapper{
   display:none;
 }
 .previewMode #editor{

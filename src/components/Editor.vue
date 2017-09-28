@@ -2,7 +2,7 @@
   <div id="editor">
     <nav>
       <ol>
-        <li v-for="i in [0,1,2,3,4,5]"
+        <li v-for="(i,index) in indexArray"
           :class="{active:currentType === i}" @click="currentType = i">
           <svg class="icon">
             <use :xlink:href="`#icon-${icons[i]}`"></use>
@@ -51,20 +51,28 @@
   import ArrayEditor from './ArrayEditor.vue'
   export default {
       components:{ProfileEditor,ArrayEditor},
-      props:['resume'],
-      data(){
-          return {
-            currentType:0,
-            icons:['shenfenzheng','work','book','c-project-copy','jiangbei','phone-line']
+      computed: {
+        indexArray(){
+            return this.$store.state.indexArray
+        },
+        currentType:{
+          get(){
+            return this.$store.state.currentType
+          },
+          set(value){
+              return this.$store.commit('switchTab',value)
           }
+        },
+        icons(){
+          return this.$store.state.icons
+        },
+        resume(){
+            return this.$store.state.resume
+        }
       },
-      methods:{
-
-      },
-      created(){
+      methods: {
 
       }
-
   }
 </script>
 <style>

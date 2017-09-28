@@ -50,7 +50,6 @@
 </template>
 <script>
   export default{
-      props:['resume'],
       methods:{
           filter(array){ // 找出非空对象
               return array.filter(item=>!this.isEmpty(item))
@@ -65,7 +64,12 @@
               }
               return empty
           }
+      },
+    computed: {
+      resume(){
+        return this.$store.state.resume
       }
+    }
   }
 </script>
 <style>
