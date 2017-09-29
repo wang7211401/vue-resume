@@ -5,18 +5,15 @@ import objectPath from 'object-path'
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
-    count: 0,
-    currentType:0,
-    icons:['shenfenzheng','work','book','c-project-copy','jiangbei','phone-line'],
-    indexArray:[0,1,2,3,4,5],
+    selected:'profile',
     resume:{
       config: [
-        { field: 'profile' },
-        { field: 'workHistory'},
-        { field: 'studyHistory' },
-        { field: 'projects'},
-        { field: 'awards'},
-        { field: 'contacts'},
+        { field: 'profile',icon:'shenfenzheng',name:'姓名',city:'城市',birth:'出生年月',profile:'个人信息'},
+        { field: 'workHistory',icon:'work',company:'公司',content:'工作内容',workHistory:'工作经历',keys: ['company','content']},
+        { field: 'studyHistory',icon:'book',school:'学校',duration:'时间',degree:'学位',studyHistory:'学习经历',keys: ['school','duration','degree']},
+        { field: 'projects',icon:'c-project-copy',name:'项目名称',content:'内容',projects:'项目经历',keys: ['name','content']},
+        { field: 'awards',icon:'jiangbei',name:'奖励详情',awards:'获奖情况',keys: ['name']},
+        { field: 'contacts',icon:'phone-line',qq:'QQ',wechat:'微信',email:'邮箱',phone:'电话',contacts:'联系方式'}
       ],
       profile:{
         name:'',
@@ -35,17 +32,29 @@ export default new Vuex.Store({
       awards:[
         {name:''}
       ],
-      contacts:{
+      contacts: {
         qq:'',wechat:'',email:'',phone:''
       }
     }
   },
   mutations: {
     switchTab(state,payload){
-      state.currentType = payload
+      state.selected = payload
     },
     updateResume(state,{field,subfield,value}){
-      field[subfield] = value
+      state.resume[field][subfield] = value
+    },
+    removeResumeSubfield(state,{item,i}){
+      item.splice(i,1)
+      localStorage.setItem('resumer',JSON.stringify(state))
+    },
+    addResumeSubfield(state,{field}){
+      let empty = {}
+      state.resume[field].push(empty)
+      state.resume.config.filter((i)=> i.field === field)[0].keys.map((key)=>{
+        Vue.set(empty,key,'')
+      })
     }
+
   }
 })

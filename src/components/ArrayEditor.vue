@@ -22,7 +22,7 @@
         },
         keys(){
           return Object.keys(this.items[0])
-        },
+        }
       },
       methods:{
         addWorkHistory(i){

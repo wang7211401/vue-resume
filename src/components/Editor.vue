@@ -2,76 +2,73 @@
   <div id="editor">
     <nav>
       <ol>
-        <li v-for="(i,index) in indexArray"
-          :class="{active:currentType === i}" @click="currentType = i">
+        <li v-for="(item,index) in resume.config"
+          :class="{active:item.field === selected}" @click="selected = item.field">
           <svg class="icon">
-            <use :xlink:href="`#icon-${icons[i]}`"></use>
+            <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
         </li>
       </ol>
     </nav>
     <ol class="panes">
-      <li :class="{active: currentType === 0}">
-        <ProfileEditor :profile="resume.profile"></ProfileEditor>
-      </li>
-      <li :class="{active: currentType === 1}">
-        <ArrayEditor v-bind:items="resume.workHistory" v-bind:labels="{company:'公司',content:'工作内容'}" title="工作经历"></ArrayEditor>
-      </li>
-      <li :class="{active: currentType === 2}">
-        <ArrayEditor v-bind:items="resume.studyHistory" v-bind:labels="{school:'学校',duration:'时间',degree:'学位'}" title="学习经历"></ArrayEditor>
-      </li>
-      <li :class="{active: currentType === 3}">
-        <ArrayEditor v-bind:items="resume.projects" v-bind:labels="{name:'项目名称',content:'内容'}" title="项目经历"></ArrayEditor>
-      </li>
-      <li :class="{active: currentType === 4}">
-        <ArrayEditor v-bind:items="resume.awards" v-bind:labels="{name:'奖励详情'}" title="获奖情况"></ArrayEditor>
-      </li>
-      <li :class="{active: currentType === 5}">
-        <h2>联系方式</h2>
-        <el-form>
-          <el-form-item label="QQ">
-            <el-input v-model="resume.contacts.qq"></el-input>
-          </el-form-item>
-          <el-form-item label="微信">
-            <el-input v-model="resume.contacts.wechat"></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱">
-            <el-input v-model="resume.contacts.email"></el-input>
-          </el-form-item>
-          <el-form-item label="电话">
-            <el-input v-model="resume.contacts.phone"></el-input>
-          </el-form-item>
-        </el-form>
+      <li v-for="item in resume.config" :class="{active:item.field === selected}">
+        <h2>{{item[item.field]}}</h2>
+        <div v-if="resume[item.field] instanceof Array">
+          <div class="subitem" v-for="(subitem,i) in resume[item.field]">
+            <div class="resumeField" v-for="(value,key) in subitem">
+              <label>{{item[key]}}</label>
+              <el-form>
+                  <el-input :value="value" @input="changeResumeField(item.field,key,$event.target.value)"></el-input>
+              </el-form>
+            </div>
+            <i class="el-icon-circle-close" @click="removeResumeSubfield(resume[item.field],i,`${item.field}`)"></i>
+            <hr>
+          </div>
+          <el-button class="addButton" type="primary" @click="addResumeSubfield(item.field)">添加一项</el-button>
+        </div>
+        <div v-else class="resumeField" v-for="(value,key) in resume[item.field]">
+          <label>{{item[key]}}</label>
+          <el-form>
+              <el-input :value="value" @input="changeResumeField(item.field,key,$event.target.value)"></el-input>
+          </el-form>
+        </div>
       </li>
     </ol>
   </div>
 </template>
 <script>
-  import ProfileEditor from './ProfileEditor'
-  import ArrayEditor from './ArrayEditor.vue'
   export default {
-      components:{ProfileEditor,ArrayEditor},
       computed: {
-        indexArray(){
-            return this.$store.state.indexArray
-        },
-        currentType:{
+        selected:{
           get(){
-            return this.$store.state.currentType
+            return this.$store.state.selected
           },
           set(value){
               return this.$store.commit('switchTab',value)
           }
-        },
-        icons(){
-          return this.$store.state.icons
         },
         resume(){
             return this.$store.state.resume
         }
       },
       methods: {
+        addResumeSubfield(field){
+          this.$store.commit('addResumeSubfield',{field})
+        },
+        removeResumeSubfield(item,i){
+          this.$store.commit('removeResumeSubfield',{
+              item,
+              i
+          })
+        },
+        changeResumeField(field,subfield,value){
+            this.$store.commit('updateResume',{
+                field,
+                subfield,
+                value
+            });
 
+        }
       }
   }
 </script>
@@ -119,8 +116,20 @@
   .panes li h2{
     margin-top:20px;
   }
-  .container{
+  .subitem{
     position:relative;
+  }
+  .resumeField{
+    margin-bottom:10px;
+  }
+  .resumeField label{
+    display: block;
+    margin-top:10px;
+    margin-bottom:10px;
+    font-size:16px;
+  }
+  .addButton{
+    margin-top:10px;
   }
   .el-icon-circle-close{
     position:absolute;
