@@ -17,9 +17,7 @@
           <div class="subitem" v-for="(subitem,i) in resume[item.field]">
             <div class="resumeField" v-for="(value,key) in subitem">
               <label>{{item[key]}}</label>
-              <el-form>
-                  <el-input :value="value" @input="changeResumeField(item.field,key,$event.target.value)"></el-input>
-              </el-form>
+              <input :value="value" @input="changeResumeField(`${item.field}.${i}.${key}`,$event.target.value)"></input>
             </div>
             <i class="el-icon-circle-close" @click="removeResumeSubfield(resume[item.field],i,`${item.field}`)"></i>
             <hr>
@@ -28,9 +26,7 @@
         </div>
         <div v-else class="resumeField" v-for="(value,key) in resume[item.field]">
           <label>{{item[key]}}</label>
-          <el-form>
-              <el-input :value="value" @input="changeResumeField(item.field,key,$event.target.value)"></el-input>
-          </el-form>
+          <input :value="value" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)"></input>
         </div>
       </li>
     </ol>
@@ -61,10 +57,9 @@
               i
           })
         },
-        changeResumeField(field,subfield,value){
+        changeResumeField(path,value){
             this.$store.commit('updateResume',{
-                field,
-                subfield,
+                path,
                 value
             });
 
@@ -115,6 +110,9 @@
   }
   .panes li h2{
     margin-top:20px;
+    margin-bottom:10px;
+    font-size:24px;
+    font-weight:normal;
   }
   .subitem{
     position:relative;
@@ -127,6 +125,25 @@
     margin-top:10px;
     margin-bottom:10px;
     font-size:16px;
+  }
+  .resumeField input{
+    width:100%;
+    font-size:14px;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #bfcbd9;
+    box-sizing: border-box;
+    color: #1f2d3d;
+    height: 36px;
+    line-height: 1;
+    outline: 0;
+    padding: 3px 10px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+  }
+  .resumeField input:focus{
+    outline: 0;
+    border-color: #20a0ff;
   }
   .addButton{
     margin-top:10px;
