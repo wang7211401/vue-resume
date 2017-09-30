@@ -1,11 +1,11 @@
 <template>
   <div id="app" v-bind:class="{previewMode:previewMode}">
     <nav class="wrapper">
-      <Topbar class="topbar" v-on:preview="preview"></Topbar>
+      <Topbar class="topbar" @preview="preview"></Topbar>
     </nav>
     <main>
       <Editor v-bind:resume="resume" class="editor"></Editor>
-      <Perview v-bind:resume="resume" class="perview"></Perview>
+      <Preview v-bind:resume="resume" class="perview"></Preview>
     </main>
     <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
@@ -14,8 +14,10 @@
 <script>
   import Topbar from './components/Topbar'
   import Editor from './components/Editor'
-  import Perview from './components/Perview'
+  import Preview from './components/Preview'
   import store from './store/index.js'
+  import AV from './lib/leancloud'
+  import getAVUser from './lib/getAVUser'
 
   export default {
     name:'app',
@@ -41,14 +43,15 @@
     components: {
       Topbar,
       Editor,
-      Perview
+      Preview
     },
     created(){
         let state = localStorage.getItem('state');
         if(state){
             state= JSON.parse(state)
         }
-        this.$store.commit('initState',state)
+        this.$store.commit('initState',state);
+        this.$store.commit('setUser',getAVUser())
     }
   }
 </script>
@@ -79,8 +82,6 @@ body{
   background: #FFFFFF;
 }
 .topbar{
-  max-width: 1440px;
-  min-width:1024px;
   margin:0 auto;
 }
 main{

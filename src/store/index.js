@@ -1,11 +1,16 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import objectPath from 'object-path'
+import AV from 'leancloud-storage'
 
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selected:'profile',
+    user:{
+      id:'',
+      username:''
+    },
     resume:{
       config: [
         { field: 'profile',icon:'shenfenzheng',name:'姓名',city:'城市',birth:'出生年月',profile:'个人信息'},
@@ -59,7 +64,12 @@ export default new Vuex.Store({
       state.resume.config.filter((i)=> i.field === field)[0].keys.map((key)=>{
         Vue.set(empty,key,'')
       })
+    },
+    setUser(state,payload){
+      Object.assign(state.user,payload)
+    },
+    removeUser(state){
+      state.user.id = null
     }
-
   }
 })
