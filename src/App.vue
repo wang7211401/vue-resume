@@ -3,7 +3,7 @@
     <nav class="wrapper">
       <Topbar class="topbar" @preview="preview"></Topbar>
     </nav>
-    <main>
+    <main class="main">
       <Editor v-bind:resume="resume" class="editor"></Editor>
       <Preview v-bind:resume="resume" class="perview"></Preview>
     </main>
@@ -84,7 +84,7 @@ body{
 .topbar{
   margin:0 auto;
 }
-main{
+.main{
   flex:1;
   display:flex;
   width:100%;
