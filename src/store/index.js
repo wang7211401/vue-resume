@@ -47,20 +47,20 @@ export default new Vuex.Store({
       Object.assign(state,payload)
     },
     switchTab(state,payload){
-      state.selected = payload
+      state.selected = payload;
       localStorage.setItem('state',JSON.stringify(state))
     },
     updateResume(state, {path, value}){
-      objectPath.set(state.resume, path, value)
+      objectPath.set(state.resume, path, value);
       localStorage.setItem('state',JSON.stringify(state))
     },
     removeResumeSubfield(state,{item,i}){
-      item.splice(i,1)
+      item.splice(i,1);
       localStorage.setItem('resumer',JSON.stringify(state))
     },
     addResumeSubfield(state,{field}){
-      let empty = {}
-      state.resume[field].push(empty)
+      let empty = {};
+      state.resume[field].push(empty);
       state.resume.config.filter((i)=> i.field === field)[0].keys.map((key)=>{
         Vue.set(empty,key,'')
       })

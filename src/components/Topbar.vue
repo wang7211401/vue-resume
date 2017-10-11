@@ -5,7 +5,7 @@
       <div class="actions">
         <div v-if="logined" class="userActions">
           <span>你好，{{user.username}}</span>
-          <a class="button" href="#" @click.prevent="signOut">退出</a>
+          <el-button type="primary" @click.prevent="signOut">退出</el-button>
         </div>
         <div v-else class="userActions">
           <el-button type="primary" @click="signUpDialogVisible = true">注册</el-button>
@@ -27,6 +27,7 @@
   import SignUpForm from './SignUpForm'
   import SignInForm from './SignInForm'
   import AV from 'leancloud-storage'
+
   export default{
       name:'Topbar',
       data(){
@@ -56,7 +57,7 @@
           signIn(user){
               this.signUpDialogVisible = false;
               this.signInDialogVisible = false;
-              this.$store.commit('setUser',user)
+              this.$store.commit('setUser',user);
           },
           preview(){
               this.$emit('preview')
@@ -82,35 +83,16 @@
     font-size:26px;
     color:#000;
   }
-  .button {
-    width: 72px;
-    height: 32px;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #222;
-    text-decoration: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-  }
-  .button:hover{
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-  }
-  .button.primary{
-    background:#02af5f;
-    color: white;
-  }
   .actions{
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .actions-preview{
-    margin-left:5px;
+  .actions .userActions span{
+    font-size:16px;
+    margin-right:5px;
   }
-  .userActions{
-    margin-right:3em;
+  .actions-preview{
+    margin-left:12px;
   }
 </style>

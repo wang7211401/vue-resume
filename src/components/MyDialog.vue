@@ -1,7 +1,8 @@
 <template>
   <div class="dialog-wrapper" v-show="visible">
     <div class="dialog">
-      <header>{{title}}
+      <header>
+        <h2>{{title}}</h2>
         <span class="close" @click="close">X</span>
       </header>
       <main>
@@ -43,11 +44,20 @@
     min-width: 10em;
   }
   .dialog > header{
-    padding: 16px;
+    padding: 18px 20px;
     display: flex;
     justify-content: space-between;
+    border:1px solid #d1dbe5;
+  }
+  .dialog header h2{
+    font-weight: normal;
+  }
+  .dialog header .close{
+    font-size:20px;
   }
   .dialog > main{
-    padding: 16px;
+    padding: 20px;
+    min-width:400px;
+    min-height:230px;
   }
 </style>
