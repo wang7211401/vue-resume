@@ -92,7 +92,7 @@
     font-size:16px;
     margin-right:5px;
   }
-  .actions-preview{
+  .actions .actions-preview{
     margin-left:12px;
   }
 </style>
